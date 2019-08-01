@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{margin: 0;padding: 0;}
+			.box{margin: 20px;padding: 5px;border: 1px solid black;width: 200px;height: 360px;float: left;}
+			p{width: 200px;height: 50px;background-color: pink;margin-bottom: 5px;}
+			
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<p id="p1">1</p>
+			<p id="p2">2</p>
+			<p id="p3">3</p>
+			<p id="p4">4</p>
+			<p id="p5">5</p>
+			<p id="p6">6</p>
+		</div>
+		<div class="box"></div>
+		<div class="box"></div>
+		<script type="text/javascript">
+			var box=document.getElementsByClassName('box');
+			
+			var p1=document.getElementById('p1');
+			var p2=document.getElementById('p2');
+			var p3=document.getElementById('p3');
+			var p4=document.getElementById('p4');
+			var p5=document.getElementById('p5');
+			var p6=document.getElementById('p6');
+			var arr=[p1,p2,p3,p4,p5,p6];
+			for(let i=0;i<arr.length;i++){
+				Remove(arr[i]);//每次调用的对象不一样
+			}
+			
+			function Remove(p1){//形参。
+				p1.onmousedown=function(ev){
+					ev=ev||window.event;//
+				var newP=p1.cloneNode(true);//复制被点击的节点
+				newP.className='new';//给复制的节点添加类名，方便后面移除
+				newP.style.position='absolute';//添加定位，此处定位到body
+				newP.style.top=p1.offsetTop+'px';//设置定位属性，让其跟被点击的按钮位置重合
+				newP.style.left=p1.offsetLeft+'px';
+				document.body.appendChild(newP);//将复制的节点添加到body中，（显示）
+				var disx=ev.offsetX;//获取当前鼠标点击的位置
+				var disy=ev.offsetY;
+				var pp=document.getElementsByClassName('new')[0];//通过类名获取添加进去的复制节点
+				
+				document.body.onmousemove=function(e){
+					e=e||window.event;
+					pp.style.left=e.clientX-disx+'px';//让复制的节点跟着鼠标移动
+					pp.style.top=e.clientY-disy+'px';
+				}
+				//添加鼠标在body上的抬起事件
+				//不能在点击的节点上添加抬起事件，因为鼠标移动后的抬起动作不会再在原来节点上进行
+				document.body.onmouseup=function(){
+					document.body.onmousemove=null;//取消鼠标的移动事件
+					if((parseInt(pp.style.left)+100)<232){//第一个框的边界
+						box[0].appendChild(p1);//把点击的节点添加到相对应的边框
+					}
+					//第二框的边界
+					if((parseInt(pp.style.left)+100)>272&&(parseInt(pp.style.left)+195)<484){
+						box[1].appendChild(p1);
+					}
+					//第三个框的边界
+					if((parseInt(pp.style.left)+100)>484&&(parseInt(pp.style.left)+195)<696){
+						box[2].appendChild(p1);
+					}
+					document.body.removeChild(pp);//移除复制的节点
+				}
+			}
+			}
+		</script>
+	</body>
+</html>
