@@ -1,0 +1,55 @@
+<!--手风琴优化版-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../base.css"/>
+		<style type="text/css">
+			.wrap{width: 100%;margin-top: 30px;position: relative;}
+			.wrap ul{position: absolute; left: 50%; transform: translateX(-50%);transition: all .5s;}
+			.wrap ul li{display: inline-block;transition: all .5s;}
+		</style>
+	</head>
+	<body>
+		<div class="wrap">
+			<ul>
+			</ul>
+		</div>
+		<script>
+		var pit=['red','orangered','yellow','green','blue'];
+//		var pit_url=[];//传url;
+		var pit_Width=200;//图片宽度
+		var pit_Hight=500;//图片高度
+		var Last_Width=400;//图片变化后的宽度
+		var wrap=document.getElementsByClassName('wrap')[0];
+		var ul=wrap.getElementsByTagName('ul')[0];
+		//总宽度
+		ul.style.width=pit.length*pit_Width+'px';
+		for(var i=0;i<pit.length;i++){
+			var new_li=document.createElement('li');
+			new_li.style.background=pit[i];//传颜色
+//			new_li.style.background='url('+pit_url[i]+') no-repeat';//传url
+//			new_li.innerHTML=``;//传html代码
+			//图片尺寸
+			new_li.style.width=pit_Width+'px';
+			new_li.style.height=pit_Hight+'px';
+			ul.appendChild(new_li);
+		}
+		var li=ul.getElementsByTagName('li');
+		for(var i=0;i<pit.length;i++){
+			li[i].onmousemove=function(){
+				ul.style.width=((pit.length-1)*pit_Width+Last_Width)+'px';
+				this.style.width=Last_Width+'px';
+			}
+			li[i].onmouseleave=function(){
+				ul.style.width=pit.length*pit_Width+'px';
+				this.style.width=pit_Width+'px';
+			}
+		}
+		
+		
+		</script>
+	</body>
+</html>
+

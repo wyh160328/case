@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>罗马时钟</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			body{
+				background-color: #000;
+			}
+			.timer{
+				position: relative;
+				width: 1000px;
+				height: 600px;
+				margin: 0 auto;
+				overflow: hidden;
+				color: rgba(255,255,255,.4);
+				
+			}
+			.timer_hour{ 
+				width: 300px;
+				height: 300px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -150px 0px 0px -150px;
+			}
+			.timer_day{
+				width: 200px;
+				height: 200px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -100px 0px 0px -100px;
+			}
+			.timer_min{
+				width: 400px;
+				height: 400px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -200px 0px 0px -200px;
+			}
+			.timer_sec{
+				width: 500px;
+				height: 500px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -250px 0px 0px -250px;
+				
+			}
+			.timer_hour ul{
+				width: 300px;
+				height: 300px;
+				position: relative;
+			}
+			.timer_hour ul li{
+				width: 36px;
+				height: 15px;
+				position: absolute;
+				text-align: center;
+				line-height: 15px;	
+			}
+			.timer_day ul li{
+				width: 50px;
+				height: 20px;
+				position: absolute;
+				text-align: center;
+				line-height: 20px;	
+			}
+			.timer_day ul{
+				width: 200px;
+				height: 200px;
+				position: relative;
+				border-radius: 200px;
+			}
+			.timer_min ul{
+				width: 400px;
+				height: 400px;
+				position: relative;
+				border-radius: 400px;
+			}
+			.timer_min ul li{
+				width: 36px;
+				height: 10px;
+				position: absolute;
+				text-align: center;
+				line-height: 10px;	
+			}
+			.timer_sec ul{
+				width: 500px;
+				height: 500px;
+				position: relative;
+				border-radius: 500px;
+			}
+			.timer_sec ul li{
+				width: 36px;
+				height: 10px;
+				position: absolute;
+				text-align: center;
+				line-height: 10px;	
+			}
+			.timer_m_date{
+				width: 100px;
+				height: 30px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -15px 0px 0px -10px;
+				font-size: 20px;
+				color: rgb(255,255,255);
+				font-family: "楷体";
+			}
+			.timer_am_pm{
+				width: 50px;
+				height: 30px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -30px 0px 0px -60px;
+				font-size: 20px;
+				color: rgb(255,255,255);
+				font-family: "楷体";
+			}
+			.timer_am_pm span{
+				width: 50px;
+				height: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="timer">
+			<div class="timer_day"><ul></ul></div> <!-- 200*200   radius:100-->	
+			<div class="timer_hour"><ul></ul></div> <!--300*300  radius：150-->
+			<div class="timer_min"><ul></ul></div> <!--400*400  radius：200-->
+			<div class="timer_sec"><ul></ul></div> <!--500*500  radius：250-->
+			<div class="timer_m_date"><span></span>月<span></span>日</div> <!--日期显示-->
+			<div class="timer_am_pm"><span>上午</span><span>下午</span></div>
+		</div>
+		<script type="text/javascript">
+			var ul=document.getElementsByTagName('ul');
+			var day=['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+			for(var i=0;i<=6;i++){	
+					ul[0].innerHTML+=`
+					<li style='left:${Math.ceil(Math.sin(i*51*(Math.PI/180))*100)+75}px;
+					bottom:${Math.ceil(Math.cos(i*51*Math.PI/180)*100)+90}px;
+					transform: rotate(${i*51-90}deg);
+					'>${day[i]}</li>`;
+				}
+			for(var i=1;i<=12;i++){
+				ul[1].innerHTML+=`
+				<li style='left:${Math.ceil(Math.sin(i*30*(Math.PI/180))*150)+132}px;
+				bottom:${Math.ceil(Math.cos(i*30*Math.PI/180)*150)+143}px;
+				transform: rotate(${i*30-90}deg);
+				'>${i}点</li>`;
+			}
+			for(var i=0;i<=59;i++){	
+					ul[2].innerHTML+=`
+					<li style='left:${Math.ceil(Math.sin(i*6*(Math.PI/180))*200)+182}px;
+					bottom:${Math.ceil(Math.cos(i*6*Math.PI/180)*200)+195}px;
+					transform: rotate(${i*6-90}deg);
+					'>${i}分</li>`;
+				}
+			for(var i=0;i<=59;i++){	
+					ul[3].innerHTML+=`
+					<li style='left:${Math.ceil(Math.sin(i*6*(Math.PI/180))*250)+232}px;
+					bottom:${Math.ceil(Math.cos(i*6*Math.PI/180)*250)+245}px;
+					transform: rotate(${i*6-90}deg);
+					'>${i}秒</li>`;
+				}
+			//设置变量，存储上一秒的状态值
+				var last_day=0;
+				var last_hour=0;
+				var last_min=0;
+				var last_sec=0;
+			function auto_timer(){
+				var timer=new Date();
+				var timer_day=timer.getDay();
+				var timer_hour=timer.getHours();
+				var timer_min=timer.getMinutes();
+				var timer_sec=timer.getSeconds();
+				
+				var timer_am_pm=document.getElementsByClassName('timer_am_pm')[0];
+				var am_pmSpan=timer_am_pm.getElementsByTagName('span');
+				if(timer_hour<12){
+					am_pmSpan[0].style.color='rgb(255,255,255)';
+					am_pmSpan[1].style.color='rgba(255,255,255,.4)';
+				}else{
+					am_pmSpan[0].style.color='rgba(255,255,255,.4)';
+					am_pmSpan[1].style.color='rgb(255,255,255)';
+				}
+				
+				timer_hour>12?timer_hour-=12:timer_hour;
+				
+				var ctimer_day=document.getElementsByClassName('timer_day')[0];
+				var ctimer_hour=document.getElementsByClassName('timer_hour')[0];
+				var ctimer_min=document.getElementsByClassName('timer_min')[0];
+				var ctimer_sec=document.getElementsByClassName('timer_sec')[0];
+				
+				var cday_li=ctimer_day.getElementsByTagName('li');
+				var chour_li=ctimer_hour.getElementsByTagName('li');
+				var cmin_li=ctimer_min.getElementsByTagName('li');
+				var csec_li=ctimer_sec.getElementsByTagName('li');
+				ctimer_day.style.transform=`rotate(${90-timer_day*51}deg)`;
+				ctimer_hour.style.transform=`rotate(${90-timer_hour*30}deg)`;
+				ctimer_min.style.transform=`rotate(${90-timer_min*6}deg)`;
+				ctimer_sec.style.transform=`rotate(${90-timer_sec*6}deg)`;
+				
+				cday_li[last_day].style.color='rgba(255,255,255,.4)';
+				chour_li[last_hour].style.color='rgba(255,255,255,.4)';
+				cmin_li[last_min].style.color='rgba(255,255,255,.4)';
+				csec_li[last_sec].style.color='rgba(255,255,255,.4)';
+				
+				cday_li[timer_day].style.color='rgba(255,255,255,1)';
+				chour_li[timer_hour-1].style.color='rgba(255,255,255,1)';
+				cmin_li[timer_min].style.color='rgba(255,255,255,1)';
+				csec_li[timer_sec].style.color='rgba(255,255,255,1)';
+				last_day=timer_day;
+				last_hour=timer_hour-1;
+				last_min=timer_min;
+				last_sec=timer_sec;
+				
+				var timer_month=timer.getMonth()+1;
+				var timer_date=timer.getDate();
+				var timer_m_date=document.getElementsByClassName('timer_m_date')[0];
+				var date_span=timer_m_date.getElementsByTagName('span');
+				date_span[0].innerHTML=timer_month;
+				date_span[1].innerHTML=timer_date;
+			}
+			auto_timer();
+			setInterval(auto_timer,1000);
+		</script>
+	</body>
+</html>

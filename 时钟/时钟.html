@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			ul{
+				list-style: none;
+			}
+			.border{
+				width: 360px;
+				height: 360px;
+				margin: 60px auto;
+				border: 1px solid #000000;
+				border-radius: 360px;
+				position: relative;
+				margin: 30px auto;
+			}
+			ul{
+				width: 300px;
+				height: 300px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -150px 0px 0px -150px;
+				
+			}
+			ul:nth-child(2){
+				width: 344px;
+				height: 344px;
+				position: absolute;
+				top:50%;
+				left: 50%;
+				margin: -170px 0px 0px -172px;
+			}
+			ul li{
+				width:  36px;
+				height: 15px;
+				position: absolute;
+				text-align: center;
+				line-height: 15px;
+			}
+			ul span:nth-child(1){
+				width: 4px;
+				height: 100px;
+				position: absolute;
+				background-color: #000;
+				top:50px;
+				left: 148px;
+				transform-origin: center bottom;/*设置span旋转中心点在底部居中位置*/
+			}
+			ul span:nth-child(2){
+				width: 4px;
+				height: 110px;
+				position: absolute;
+				background-color: #A71D5D;
+				top:40px;
+				left: 148px;
+				transform-origin: center bottom;
+			}
+			ul span:nth-child(3){
+				width: 4px;
+				height: 120px;
+				position: absolute;
+				background-color: red;
+				top:30px;
+				left: 148px;
+				transform-origin: center bottom;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="border">
+			<ul>
+				<span></span>
+				<span></span>
+				<span></span>
+			</ul>
+			<ul></ul>
+		</div>
+		<script type="text/javascript">
+			var ul=document.getElementsByTagName('ul');
+			for(var i=1;i<=12;i++){
+				ul[0].innerHTML+=`
+				<li style='left:${Math.ceil(Math.sin(i*30*(Math.PI/180))*150)+132}px;
+				bottom:${Math.ceil(Math.cos(i*30*Math.PI/180)*150)+143}px;
+				'>${i}点</li>`;
+			}
+			for(var i=0;i<=59;i++){	
+					ul[1].innerHTML+=`
+					<li style='left:${Math.ceil(Math.sin(i*6*(Math.PI/180))*172)+154}px;
+					bottom:${Math.ceil(Math.cos(i*6*Math.PI/180)*172)+167}px;
+					transform: rotate(${i*6}deg);
+					'>|</li>`;
+				}
+			var li=ul[1].getElementsByTagName('li');
+			for(var i=0;i<=59;i+=5){
+				li[i].style.color='red';
+			}
+			var span=document.getElementsByTagName('span');
+			function auto(){
+				var date=new Date();
+				var hour=date.getHours();
+				var min=date.getMinutes();
+				var sec=date.getSeconds();
+				var msec=date.getMilliseconds();
+				//时针位置优化
+				hour+=(min/6)/10;
+				span[0].style.transform=`rotate(${hour*30}deg)`;
+				span[1].style.transform=`rotate(${min*6}deg)`;
+				span[2].style.transform=`rotate(${sec*6+msec*0.006}deg)`;
+			}
+			auto();//初始化
+			setInterval(auto,40);
+		</script>
+	</body>
+</html>

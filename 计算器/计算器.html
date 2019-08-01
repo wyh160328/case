@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>计算器</title>
+	</head>
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		.wrap{
+			width: 500px;
+			height: 500px;
+			margin: 30px auto;
+			/*background-color: skyblue;*/
+			padding-top: 10px;
+			}
+		ul{
+			list-style: none;
+		}
+		.wrap p{
+			text-align: right;
+			height: 30px;
+			line-height: 30px;
+			width: 400px;
+			margin: 10px auto;
+			background-color: #DDDDDD;
+			padding-right: 20px;
+			box-sizing: border-box;
+		}
+		.wrap li{
+			cursor: pointer;
+		}
+		
+		.wrap ul{
+			text-align: center;
+			width: 400px;
+			margin: 10px auto;
+			overflow: hidden;
+		}
+		.wrap ul:nth-child(2) li{
+			width: 100px;
+			height: 30px;
+			background-color: #eee;
+			line-height: 30px;
+			float: left;
+			margin-right: 16px;
+			margin-left: 16px;
+			margin-top: 5px;
+		}
+	
+		.wrap ul+ul{
+			text-align: center;
+			width: 400px;
+			margin: 10px auto;
+			overflow: hidden;
+		}
+		.wrap ul:nth-child(3) li{
+			width: 45px;
+			height: 30px;
+			background-color: #eee;
+			line-height: 30px;
+			float: left;
+			margin-right: 16px;
+			margin-left: 16px;
+			margin-top: 5px;
+		}
+		.wrap ul li:hover{
+			background-color: red;
+		}
+	</style>
+	<body>
+		<div class="wrap">
+			<p></p>
+			<ul></ul>
+			<ul></ul>
+		</div>
+		<script type="text/javascript">
+			var reg=/[0-9][+,-,*,/][0-9]/;
+			var ul=document.getElementsByTagName('ul');
+			ul[0].innerHTML+=`<li style='margin:5px 148px'>0</li>`;
+			
+			for(var i=1;i<=9;i++){
+				ul[0].innerHTML+=`<li>${i}</li>`;
+			}
+			
+			var arr=['+','-','*','/','='];
+			for(var i=0;i<=4;i++){
+				ul[1].innerHTML+=`<li>${arr[i]}</li>`;
+			}
+			ul[1].innerHTML+=`<li>退格</li>`;
+			ul[1].innerHTML+=`<li>清空</li>`;
+			var p=document.getElementsByTagName('p')[0];
+			var	num_li=ul[0].getElementsByTagName('li');
+			for(let i=0;i<num_li.length;i++){
+				num_li[i].onclick=function(){
+					p.innerHTML+=i;
+				}
+			}
+			var c_li=ul[1].getElementsByTagName('li');
+			for(let i=0;i<c_li.length-1;i++){
+				
+				c_li[i].onclick=function(){
+					var tx=p.innerHTML.substr(p.innerHTML.length-1,1);
+					console.log(tx);
+					if(isNaN(tx)){
+						p.innerHTML=p.innerHTML.substr(0,p.innerHTML.length-1);
+						p.innerHTML+=arr[i];
+					}else{
+						
+						p.innerHTML+=arr[i];
+					}
+					
+				}
+			}
+			c_li[5].onclick=function(){
+				p.innerHTML=p.innerHTML.substr(0,p.innerHTML.length-1);
+			}
+			c_li[6].onclick=function(){
+				p.innerHTML='';
+			}
+//			var str=prompt("请输入");
+			c_li[4].onclick=function(){
+				var str=p.innerHTML;
+				console.log(str);
+			var arr=Array.from(str);
+			console.log(arr);
+			var s=[];
+			var result,temp;
+			while(true) {
+				if(isNaN(temp=arr.pop())==false)
+				s.unshift(temp);
+				else {
+					arr.push(temp);
+					break;
+				}	
+			}
+			switch(arr.pop()){
+				case '+':
+					result=Number(arr.join(""))+Number(s.join(""));
+					break;
+				case '-':
+					result=Number(arr.join(""))-Number(s.join(""));
+					break;
+				case '*':
+					result=Number(arr.join(""))*Number(s.join(""));
+					break;
+				case '/':
+					result=Number(arr.join(""))/Number(s.join(""));
+					break;					
+				}
+				
+				p.innerHTML=result;
+			}
+		</script>
+	</body>
+</html>

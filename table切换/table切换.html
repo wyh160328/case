@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../base.css"/>
+		<style type="text/css">
+			.tab{width: 100%;overflow: hidden;margin-top: 30px;position: relative;}
+			.tab_middle{position: relative;margin: 0 auto;}
+			.tab_middle ul{overflow: hidden;border: 1px solid #EEEEEE;}
+			.tab_middle ul li{padding:20px;box-sizing: border-box;font-size:16px;display: inline-block;border-right: 1px solid #EEEEEE;}
+
+			.tab_middle .show{width: 800px;height: 0px;border:1px solid #eee;transition: all .5s;position:relative;top:0px;border-top: none;}
+			.tab_middle .show div{width: 800px;height: 0px;position: absolute;top:0px;left: 0px;opacity: 0;transition: all .5s;}
+			
+			
+			
+		</style>
+	</head>
+	<body>
+		<div class="tab">
+			<div class="tab_middle">
+				<ul></ul>
+				<div class="show"><div>
+			</div>
+		</div>
+	
+		<script type="text/javascript">
+			var showStr=['red','orangered','yellow','green','blue'];//show图片src
+			var liColor=['red','orangered','yellow','green','blue'];//li移入的背景样式
+			var liTxt=['红色','橙色','yellow','green','blue'];//li显示的内容
+			var show_hight=400;//显示框的高度
+			var show_width=800;//显示框的宽度
+			var tab_middle=document.getElementsByClassName('tab_middle')[0];
+			var show=tab_middle.getElementsByClassName('show')[0];
+			var ul=tab_middle.getElementsByTagName('ul')[0];
+			var li=ul.getElementsByTagName('li');
+			tab_middle.style.width=show_width+'px';
+			ul.style.width=show_width+'px';
+			for(var i=0;i<liTxt.length;i++){
+				var new_li=document.createElement('li');
+				new_li.innerText=liTxt[i];
+				ul.appendChild(new_li);
+				var new_show=document.createElement('div');
+				new_show.className="show"+i;
+				show.appendChild(new_show);
+			}
+			for(var i=0;i<show.children.length;i++){
+				show.children[i].style.background=showStr[i];
+				show.children[i].innerHTML=i;
+			}
+			for(let i=0;i<li.length;i++){
+				li[i].onmousemove=function(){
+					if(parseInt(show.style.height)!=show_hight){
+						li[i].style.background=liColor[i];
+						show.style.height=show_hight+'px';
+						show.children[i].style.opacity=1;
+						show.children[i].style.zIndex=99;
+						for(var j=0;j<li.length;j++){
+							show.children[j].style.height=show_hight+'px';
+						}
+					}else{
+						show.children[i].style.opacity=1;
+					}	
+				}
+				li[i].onmouseleave=function(){
+					show.style.height=0+'px';
+					show.children[i].style.height=0+'px';
+					show.children[i].style.opacity=0;
+					li[i].style.background="";
+					show.children[i].style.zIndex=i;
+				}
+				show.children[i].onmousemove=function(){
+					li[i].style.background=liColor[i];
+					show.style.height=show_hight+'px';
+					show.children[i].style.height=show_hight+'px';
+					show.children[i].style.opacity=1;
+					show.children[i].style.zIndex=99;
+				}
+				show.children[i].onmouseleave=function(){
+					show.style.height=0+'px';
+					show.children[i].style.height=0+'px';
+					show.children[i].style.opacity=0;
+					li[i].style.background="";
+					show.children[i].style.zIndex=i;
+				}
+			}
+		</script>
+	</body>
+</html>
