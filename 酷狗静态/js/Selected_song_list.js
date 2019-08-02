@@ -28,5 +28,38 @@ for(let i=0;i<hidden.length;i++){
 	}
 }
 
-var lisarr=['img/lispic01.jpg','img/lispic02.jpg','img/lispic03.jpg'];
+var list={1:{
+	"title":"酷狗飙升榜",
+	"lis1":"1 . 颖宝儿 - 牛奶面包",
+	"lis2":"2 . 兔子牙 - 春江花月",
+	"pic":"img/lispic01.jpg"
+},
+2:{
+	"title":"酷狗TOP500",
+	"lis1":"1 . G.E.M.邓紫棋 - 来自天堂的魔鬼",
+	"lis2":"2 . 王力宏、谭维维 - 缘分一道桥",
+	"pic":"img/lispic02.jpg"
+},
+3:{
+	"title":"网络红歌榜",
+	"lis1":"1 . 虎二 - 你一定要幸福",
+	"lis2":"2 . 杭娇 - 听心",
+	"pic":"img/lispic03.jpg"
+}
+}
+var Blist=document.getElementById("Blist");
+for(var i in list){
+	
+	var newLi=document.createElement("li");
+	newLi.innerHTML=`<img src="${list[i]['pic']}"/>
+							<span></span>
+							<div class="txt">
+								<p>${list[i]['title']}</p>
+								<p>${list[i]['lis1']}</p>
+								<p>${list[i]['lis2']}</p>
+							</div>
+							<i></i>`;
+	Blist.appendChild(newLi);
+	
+}
 

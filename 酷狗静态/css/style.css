@@ -165,8 +165,12 @@ a{
 /*轮播图开始*/
 .lunbo{
 	width: 100%;
-	height: 445px;
+	overflow: hidden;
 	position: relative;
+}
+.lunbo img{
+	width: 100%;
+	
 }
 .lunbo:hover .bt_left,.lunbo:hover .bt_right{
 	display: block;
@@ -409,7 +413,8 @@ a{
 	color: #0c8ed9;
 }
 .m_b_list{width: 320px;height: 325px;}
-.m_b_list ul li{position: relative;}
+.m_b_list ul li{width: 320px;overflow: hidden;}
+.m_b_list ul li+li{margin-top: 15px;}
 .m_b_list ul li img{width: 98px;height: 98px;float: left;}
 .m_b_list ul li span{width: 98px;height: 98px;position: absolute;top: 0;left: 0;}
 .m_b_list ul li .txt{width: 200px;height: 68px;padding: 15px 10px;float: right;}
