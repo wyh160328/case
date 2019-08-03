@@ -52,5 +52,5 @@ lunbo.onmousemove=function(){
 	clearInterval(timer);
 }
 lunbo.onmouseleave=function(){
-	timer=setInterval(auto_img,1000);
+	timer=setInterval(auto_img,3000);
 }

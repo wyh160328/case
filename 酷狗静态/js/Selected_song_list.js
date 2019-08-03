@@ -51,8 +51,9 @@ var Blist=document.getElementById("Blist");
 for(var i in list){
 	
 	var newLi=document.createElement("li");
-	newLi.innerHTML=`<img src="${list[i]['pic']}"/>
+	newLi.innerHTML=`<div class="listBimg"><img src="${list[i]['pic']}"/>
 							<span></span>
+							</div>
 							<div class="txt">
 								<p>${list[i]['title']}</p>
 								<p>${list[i]['lis1']}</p>

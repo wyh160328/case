@@ -170,6 +170,8 @@ a{
 }
 .lunbo img{
 	width: 100%;
+	height: 450px;
+	
 	
 }
 .lunbo:hover .bt_left,.lunbo:hover .bt_right{
@@ -179,7 +181,8 @@ a{
 	width: 60px;
 	height: 120px;
 	background-color: skyblue;
-	top:162px;
+	top:50%;
+	transform: translateY(-50%);
 	display:none;
 }
 
@@ -203,7 +206,7 @@ a{
 	position: absolute;
 	width: 100%;
 	height: 60px;
-	bottom:0px;
+	bottom:4px;
 	background-color: rgba(0,0,0,.3);
 }
 .lb_dot{
@@ -414,9 +417,14 @@ a{
 }
 .m_b_list{width: 320px;height: 325px;}
 .m_b_list ul li{width: 320px;overflow: hidden;}
+.m_b_list ul li:hover .listBimg span{display: block;}
 .m_b_list ul li+li{margin-top: 15px;}
-.m_b_list ul li img{width: 98px;height: 98px;float: left;}
-.m_b_list ul li span{width: 98px;height: 98px;position: absolute;top: 0;left: 0;}
+.m_b_list ul li img{width: 98px;height: 98px;}
+.m_b_list ul li .listBimg{position: relative;width: 98px;height: 98px;float: left;}
 .m_b_list ul li .txt{width: 200px;height: 68px;padding: 15px 10px;float: right;}
 .m_b_list ul li .txt>p{width: 200px;height: 24px;color: #333;font-weight: 700;font-size: 14px;}
 .m_b_list ul li .txt p+p{width: 200px;height: 24px;line-height:24px;color: #333;font-size: 12px;font-weight: 100;-webkit-line-clamp: 1;overflow: hidden;display: -webkit-box;-webkit-box-orient: vertical;}
+.m_b_list ul li span{background-image: url(../img/sprite.png);background-position: 0 -401px;width: 36px;height: 36px;position: absolute;top:50%;left: 50%;transform: translate(-50%,-50%);display: none;}
+
+
+
